@@ -1,0 +1,6 @@
+POST  localhost:3000/api/createNoteBook
+Content-Type: application/json
+
+{
+  "name": "David"
+}

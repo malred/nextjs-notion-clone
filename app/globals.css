@@ -1,0 +1,434 @@
+/*app/globals.css*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 0 0% 100%;
+        --foreground: 222.2 84% 4.9%;
+        --card: 0 0% 100%;
+        --card-foreground: 222.2 84% 4.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 222.2 84% 4.9%;
+        --primary: 222.2 47.4% 11.2%;
+        --primary-foreground: 210 40% 98%;
+        --secondary: 210 40% 96.1%;
+        --secondary-foreground: 222.2 47.4% 11.2%;
+        --muted: 210 40% 96.1%;
+        --muted-foreground: 215.4 16.3% 46.9%;
+        --accent: 210 40% 96.1%;
+        --accent-foreground: 222.2 47.4% 11.2%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 210 40% 98%;
+        --border: 214.3 31.8% 91.4%;
+        --input: 214.3 31.8% 91.4%;
+        --ring: 222.2 84% 4.9%;
+        --radius: 0.5rem;
+        --chart-1: 12 76% 61%;
+        --chart-2: 173 58% 39%;
+        --chart-3: 197 37% 24%;
+        --chart-4: 43 74% 66%;
+        --chart-5: 27 87% 67%;
+    }
+
+    .dark {
+        --background: 222.2 84% 4.9%;
+        --foreground: 210 40% 98%;
+        --card: 222.2 84% 4.9%;
+        --card-foreground: 210 40% 98%;
+        --popover: 222.2 84% 4.9%;
+        --popover-foreground: 210 40% 98%;
+        --primary: 210 40% 98%;
+        --primary-foreground: 222.2 47.4% 11.2%;
+        --secondary: 217.2 32.6% 17.5%;
+        --secondary-foreground: 210 40% 98%;
+        --muted: 217.2 32.6% 17.5%;
+        --muted-foreground: 215 20.2% 65.1%;
+        --accent: 217.2 32.6% 17.5%;
+        --accent-foreground: 210 40% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 210 40% 98%;
+        --border: 217.2 32.6% 17.5%;
+        --input: 217.2 32.6% 17.5%;
+        --ring: 212.7 26.8% 83.9%;
+        --chart-1: 220 70% 50%;
+        --chart-2: 160 60% 45%;
+        --chart-3: 30 80% 55%;
+        --chart-4: 280 65% 60%;
+        --chart-5: 340 75% 55%;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+.grainy {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAElBMVEUAAAD8/vz08vT09vT8+vzs7uxH16TeAAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAuFJREFUOI0Vk+3NLiEIRG1B8ClAYAsQ2AIEt4D9ePtv5Xp/mZgYJ2fOFJKEfInkVWY2aglmQFkimRTV7MblYyVqD7HXyhKsSuPX12MeDhRHLtGvRG+P+B/S0Vu4OswR9tmvwNPyhdCDbVayJGads/WiUWcjCvCnruTBNHS9gmX2VzVbk7ZvB1gb1hkWFGl+A/n+/FowcO34U/XvKqZ/fHY+6vgRfU92XrOBUbGeeDfQmjWjdrK+frc6FdGReQhfSF5JvR29O2QrfNw1huTwlgsyXLo0u+5So82sgv7tsFZR2nxB6lXiquHrfD8nfYZ9SeT0LiuvSoVrxGY16pCNRZKqvwWsn5OHypPBELzohMCaRaa0ceTHYqe7X/gfJEEtKFbJpWoNqO+aS1cuTykGPpK5Ga48m6L3NefTr013KqYBQu929iP1oQ/7UwSR+i3zqruUmT84qmhzLpxyj7pr9kg7LKvqaXxZmdpn+6o8sHqSqojy02gU3U8q9PnpidiaLks0mbMYz+q2uVXsoBQ8bfURULYxRgZVYCHMv9F4OA7qxT2NPPpvGQ/sTDH2yznKh7E2AcErfcNsaIoN1izzbJiaY63x4QjUFdBSvDCvugPpu5xDny0jzEeuUQbcP1aGT9V90uixngTRLYNEIIZ6yOF1H8tm7rj2JxiefsVy53zGVy3ag5uuPsdufYOzYxLRxngKe7nhx3VAq54pmz/DK9/Q3aDam2Yt3hNXB4HuU87jKNd/CKZn77Qdn5QkXPfqSkhk7hGOXXB+7v09KbBbqdvxGqa0AqfK/atIrL2WXdAgXAJ43Wtwe/aIoacXezeGPMlhDOHDbSfHnaXsL2QzbT82GRwZuezdwcoWzx5pnOnGMUdHuiY7lhdyWzWiHnucLZQxYStMJbtcydHaQ6vtMbe0AcDbxG+QG14AL94xry4297xpy9Cpf1OoxZ740gHDfrK+gtsy0xabwJmfgtCeii79B6aj0SJeLbd7AAAAAElFTkSuQmCC);
+}
+
+.tiptap.ProseMirror {
+    outline: none;
+    width: 48rem;
+    /*border: none;*/
+}
+
+.is-active {
+    background-color: #dadada;
+    border-radius: 2px;
+}
+
+/*tiptap*/
+.tiptap .code-block {
+    position: relative;
+}
+
+.tiptap .code-block select {
+    position: absolute;
+    background-color: var(--white);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="Black" d="M7 10l5 5 5-5z"/></svg>');
+    right: 0.5rem;
+    top: 0.5rem;
+}
+
+/* Basic editor styles */
+/* Bubble menu */
+.bubble-menu {
+    background-color: white;
+    border: 1px solid rgba(169, 169, 169, 0.82);
+    display: flex;
+    padding: 0.2rem;
+}
+
+.bubble-menu button {
+    border-radius: 0.7rem;
+    background-color: unset;
+}
+
+.bubble-menu button:hover {
+    background-color: var(--gray-3);
+}
+
+.bubble-menu button.is-active {
+    /*background-color: var(--purple);*/
+    background-color: #ad96dd;
+}
+
+.bubble-menu button.is-active:hover {
+    background-color: var(--purple-contrast);
+}
+
+/* Basic editor styles */
+.tiptap {
+    /* List styles */
+    /* Heading styles */
+    /* Code and preformatted text styles */
+    /* Table-specific styling */
+    /* Code styling */
+}
+
+.tiptap :first-child {
+    margin-top: 0;
+}
+
+.tiptap ul, .tiptap ol {
+    padding: 0 1rem;
+    margin: 1.25rem 1rem 1.25rem 0.4rem;
+}
+
+.tiptap ul li p, .tiptap ol li p {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
+.tiptap h1, .tiptap h2, .tiptap h3, .tiptap h4, .tiptap h5, .tiptap h6 {
+    line-height: 1.1;
+    margin-top: 2.5rem;
+    text-wrap: pretty;
+}
+
+.tiptap h1, .tiptap h2 {
+    margin-top: 3.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tiptap h1 {
+    font-size: 1.4rem;
+}
+
+.tiptap h2 {
+    font-size: 1.2rem;
+}
+
+.tiptap h3 {
+    font-size: 1.1rem;
+}
+
+.tiptap h4, .tiptap h5, .tiptap h6 {
+    font-size: 1rem;
+}
+
+.tiptap code {
+    background-color: rgba(154, 117, 229, 0.79);
+    border-radius: 0.4rem;
+    color: black;
+    font-size: 0.85rem;
+    padding: 0.25em 0.3em;
+}
+
+.tiptap pre {
+    background: black;
+    border-radius: 0.5rem;
+    color: white;
+    font-family: "JetBrainsMono", monospace;
+    margin: 1.5rem 0;
+    padding: 0.75rem 1rem;
+}
+
+.tiptap pre code {
+    background: none;
+    color: inherit;
+    font-size: 0.8rem;
+    padding: 0;
+}
+
+.tiptap mark {
+    background-color: #FAF594;
+    border-radius: 0.4rem;
+    box-decoration-break: clone;
+    padding: 0.1rem 0.3rem;
+}
+
+.tiptap table {
+    border-collapse: collapse;
+    margin: 0;
+    overflow: hidden;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.tiptap table td, .tiptap table th {
+    border: 1px solid lightgray;
+    box-sizing: border-box;
+    min-width: 1em;
+    padding: 6px 8px;
+    position: relative;
+    vertical-align: top;
+}
+
+.tiptap table td > *, .tiptap table th > * {
+    margin-bottom: 0;
+}
+
+.tiptap table th {
+    background-color: darkgrey;
+    font-weight: bold;
+    text-align: left;
+}
+
+.tiptap table .selectedCell:after {
+    background: #c0c0c0;
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+}
+
+.tiptap table .column-resize-handle {
+    background-color: var(--purple);
+    bottom: -2px;
+    pointer-events: none;
+    position: absolute;
+    right: -2px;
+    top: 0;
+    width: 4px;
+}
+
+.tiptap .tableWrapper {
+    margin: 1.5rem 0;
+    overflow-x: auto;
+}
+
+.tiptap.resize-cursor {
+    cursor: ew-resize;
+    cursor: col-resize;
+}
+
+.tiptap .hljs-comment, .tiptap .hljs-quote {
+    color: #616161;
+}
+
+.tiptap .hljs-variable, .tiptap .hljs-template-variable, .tiptap .hljs-attribute, .tiptap .hljs-tag, .tiptap .hljs-name, .tiptap .hljs-regexp, .tiptap .hljs-link, .tiptap .hljs-selector-id, .tiptap .hljs-selector-class {
+    color: #f98181;
+}
+
+.tiptap .hljs-number, .tiptap .hljs-meta, .tiptap .hljs-built_in, .tiptap .hljs-builtin-name, .tiptap .hljs-literal, .tiptap .hljs-type, .tiptap .hljs-params {
+    color: #fbbc88;
+}
+
+.tiptap .hljs-string, .tiptap .hljs-symbol, .tiptap .hljs-bullet {
+    color: #b9f18d;
+}
+
+.tiptap .hljs-title, .tiptap .hljs-section {
+    color: #faf594;
+}
+
+.tiptap .hljs-keyword, .tiptap .hljs-selector-tag {
+    color: #70cff8;
+}
+
+.tiptap .hljs-emphasis {
+    font-style: italic;
+}
+
+.tiptap .hljs-strong {
+    font-weight: 700;
+}
+
+.tiptap mark {
+    background-color: #FAF594;
+    border-radius: 0.4rem;
+    box-decoration-break: clone;
+    padding: 0.1rem 0.3rem;
+}
+
+.tiptap blockquote {
+    border-left: 3px solid lightgray;
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+}
+
+.tiptap hr {
+    border: none;
+    border-top: 1px solid rgba(220, 220, 220, 0.89);
+    margin: 2rem 0;
+}
+
+.col-group {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 540px) {
+    .col-group {
+        flex-direction: column-reverse;
+    }
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.sidebar {
+    border-left: 1px solid lightgray;
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding: 1rem;
+    width: 15rem;
+    position: sticky;
+    height: 100vh;
+    top: 0;
+}
+
+@media (min-width: 800px) {
+    .sidebar {
+        width: 20rem;
+    }
+}
+
+@media (max-width: 540px) {
+    .sidebar {
+        border-bottom: 1px solid var(--gray-3);
+        border-left: unset;
+        width: 100%;
+        height: auto;
+        position: unset;
+        padding: 1.5rem;
+    }
+}
+
+.sidebar-options {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 1rem;
+    position: sticky;
+    top: 1rem;
+}
+
+.table-of-contents {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.875rem;
+    gap: 0.25rem;
+    overflow: auto;
+    text-decoration: none;
+}
+
+.table-of-contents > div {
+    border-radius: 0.25rem;
+    padding-left: calc(0.875rem * (var(--level) - 1));
+    transition: all 0.2s cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+
+.table-of-contents > div:hover {
+    background-color: lightgray;
+}
+
+.table-of-contents .empty-state {
+    /*color: var(--gray-5);*/
+    color: gray;
+    user-select: none;
+}
+
+.table-of-contents .is-active a {
+    /*color: var(--purple);*/
+    color: purple;
+}
+
+.table-of-contents .is-scrolled-over a {
+    color: rgba(128, 128, 128, 0.51);
+}
+
+.table-of-contents a {
+    color: black;
+    display: flex;
+    gap: 0.25rem;
+    text-decoration: none;
+}
+
+.table-of-contents a::before {
+    content: attr(data-item-index) ".";
+}
+
+.table-of-contents pre {
+    background: black;
+    border-radius: 0.5rem;
+    color: white;
+    font-family: "JetBrainsMono", monospace;
+    margin: 1.5rem 0;
+    padding: 0.75rem 1rem;
+}
+
+.table-of-contents pre code {
+    background: none;
+    color: inherit;
+    font-size: 0.8rem;
+    padding: 0;
+}
+
