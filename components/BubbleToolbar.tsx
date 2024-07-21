@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {useCallback} from "react";
+import {addImg} from "@/lib/tiptapEx";
 
 
 type Props = {
@@ -38,15 +39,7 @@ export default function BubbleToolbar({editor}: Props) {
     if (!editor)
         return null
 
-    const addImage = useCallback(() => {
-        const url = window.prompt('URL')
-
-        if (url) {
-            editor.chain().focus().setImage({src: url}).run()
-        }
-    }, [editor])
-
-
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const setLink = useCallback(() => {
         const previousUrl = editor.getAttributes('link').href
         const url = window.prompt('URL', previousUrl)
@@ -467,7 +460,7 @@ export default function BubbleToolbar({editor}: Props) {
                 >
                     <Minus className={'h-4 w-4'}/>
                 </Toggle>
-                <Image onClick={addImage} className={'m-2 cursor-pointer h-5 w-5'}/>
+                {/*<Image onClick={addImage} className={'m-2 cursor-pointer h-5 w-5'}/>*/}
 
                 <Toggle
                     onClick={() => editor.chain().focus().toggleTaskList().run()}

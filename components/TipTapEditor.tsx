@@ -61,6 +61,10 @@ import Superscript from '@tiptap/extension-superscript'
 
 import TextAlign from '@tiptap/extension-text-align'
 
+import ImageComponent from '@/components/TiptapImageEx/extension'
+import ImageResize from 'tiptap-extension-resize-image';
+// import {ResizableImage} from "tiptap-resize-image";
+
 type Props = {
     note: NoteType
 }
@@ -108,6 +112,9 @@ export default function TipTapEditor({note}: Props) {
 
     const editor = useEditor({
         extensions: [
+            ImageResize,
+            // ResizableImage,
+            ImageComponent, // custom
             StarterKit.configure({
                 // Disable an included extension
                 history: false,

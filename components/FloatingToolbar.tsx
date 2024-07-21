@@ -16,6 +16,7 @@ import {
     Brackets, Image, Quote, CodepenIcon,
 } from "lucide-react";
 import {useCallback} from "react";
+import {handleUploadImg} from '@/lib/tiptapEx'
 
 type Props = {
     editor: Editor | null
@@ -25,34 +26,31 @@ export default function FloatingToolbar({editor}: Props) {
     if (!editor)
         return null
 
-    const addImage = useCallback(() => {
-        const url = window.prompt('URL')
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const addImage = useCallback((event) => {
+        event.preventDefault();
+        let url = ''
+        // const url = window.prompt('URL')
+        var input = document.getElementById("fileUpload");
+        // @ts-ignore
+        input.click();
+        // @ts-ignore
+        input.onchange = async (e) => {
+            // @ts-ignore
+            var file = e.target.files[0];
+            url = `/tmp/${file.name}`
+            // const url = URL.createObjectURL(file);
 
-        if (url) {
-            editor.chain().focus().setImage({src: url}).run()
-        }
-    }, [editor])
+            await handleUploadImg(file)
 
-    const setLink = useCallback(() => {
-        const previousUrl = editor.getAttributes('link').href
-        const url = window.prompt('URL', previousUrl)
-
-        // cancelled
-        if (url === null) {
-            return
-        }
-
-        // empty
-        if (url === '') {
-            editor.chain().focus().extendMarkRange('link').unsetLink()
-                .run()
-
-            return
-        }
-
-        // update link
-        editor.chain().focus().extendMarkRange('link').setLink({href: url})
-            .run()
+            if (url) {
+                // editor.commands.insertContent(`<react-component src=${url} />`);
+                editor.chain().focus().setImage({src: url}).run()
+            }
+        };
+        // if (url) {
+        //     editor.chain().focus().setImage({src: url}).run()
+        // }
     }, [editor])
 
     return (
@@ -160,212 +158,28 @@ export default function FloatingToolbar({editor}: Props) {
                     <Minus className={'h-4 w-4'}/>
                 </Toggle>
                 <Image onClick={addImage} className={'m-2 cursor-pointer h-5 w-5'}/>
-                {/*<div className={'inline-block mx-1'}>*/}
-                {/*    <Select*/}
-                {/*        onValueChange={(value) => {*/}
-                {/*            switch (value) {*/}
-                {/*                case 'Insert table':*/}
-                {/*                    editor.chain().focus().insertTable({rows: 3, cols: 3, withHeaderRow: true}).run()*/}
-                {/*                    break*/}
-                {/*                case 'Add column before':*/}
-                {/*                    editor.chain().focus().addColumnBefore().run()*/}
-                {/*                    break*/}
-                {/*                case 'Add column after':*/}
-                {/*                    editor.chain().focus().addColumnAfter().run()*/}
-                {/*                    break*/}
-
-                {/*                case 'Delete column':*/}
-                {/*                    editor.chain().focus().deleteColumn().run()*/}
-                {/*                    break*/}
-
-                {/*                case 'Add row before':*/}
-                {/*                    editor.chain().focus().addRowBefore().run()*/}
-                {/*                    break*/}
-
-                {/*                case 'Add row after':*/}
-                {/*                    editor.chain().focus().addRowAfter().run()*/}
-                {/*                    break*/}
-
-                {/*                case 'Delete row':*/}
-                {/*                    editor.chain().focus().deleteRow().run()*/}
-                {/*                    break*/}
-
-                {/*                case 'Delete table':*/}
-                {/*                    editor.chain().focus().deleteTable().run()*/}
-                {/*                    break*/}
-
-                {/*                case 'Merge cells':*/}
-                {/*                    editor.chain().focus().mergeCells().run()*/}
-                {/*                    break*/}
-
-                {/*                case 'Split cell':*/}
-                {/*                    editor.chain().focus().splitCell().run()*/}
-                {/*                    break*/}
-
-                {/*                case 'Toggle header column':*/}
-                {/*                    editor.chain().focus().toggleHeaderColumn().run()*/}
-                {/*                    break*/}
-
-                {/*                case 'Toggle header row':*/}
-                {/*                    editor.chain().focus().toggleHeaderRow().run()*/}
-                {/*                    break*/}
-                {/*                case 'Toggle header cell':*/}
-                {/*                    editor.chain().focus().toggleHeaderCell().run()*/}
-                {/*                    break*/}
-
-                {/*                case 'Merge or split':*/}
-                {/*                    editor.chain().focus().mergeOrSplit().run()*/}
-                {/*                    break*/}
-
-                {/*                case 'Set cell attribute':*/}
-                {/*                    editor.chain().focus().setCellAttribute('colspan', 2).run()*/}
-                {/*                    break*/}
-
-
-                {/*                case 'Fix tables':*/}
-                {/*                    editor.chain().focus().fixTables().run()*/}
-                {/*                    break*/}
-
-
-                {/*                case 'Go to next cell':*/}
-                {/*                    editor.chain().focus().goToNextCell().run()*/}
-                {/*                    break*/}
-
-                {/*                case 'Go to previous cell':*/}
-                {/*                    editor.chain().focus().goToPreviousCell().run()*/}
-                {/*                    break*/}
-
-                {/*            }*/}
-                {/*        }}*/}
-                {/*    >*/}
-                {/*        <SelectTrigger className="w-[180px]">*/}
-                {/*            <SelectValue placeholder={'table'}/>*/}
-                {/*        </SelectTrigger>*/}
-                {/*        <SelectContent>*/}
-                {/*            <SelectItem*/}
-                {/*                value={'Insert table'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().insertTable({rows: 3, cols: 3, withHeaderRow: true}).run()*/}
-                {/*                }*/}
-                {/*            >*/}
-                {/*                Insert table*/}
-                {/*            </SelectItem>*/}
-                {/*            <SelectItem*/}
-                {/*                value={'Add column before'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().addColumnBefore().run()*/}
-                {/*                }*/}
-                {/*            >*/}
-                {/*                Add column before*/}
-                {/*            </SelectItem>*/}
-                {/*            <SelectItem*/}
-                {/*                value={'Add column after'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().addColumnAfter().run()*/}
-                {/*                }*/}
-                {/*            >Add column after</SelectItem>*/}
-                {/*            <SelectItem*/}
-                {/*                value={'Delete column'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().deleteColumn().run()*/}
-                {/*                }*/}
-                {/*            >Delete column</SelectItem>*/}
-                {/*            <SelectItem*/}
-                {/*                value={'Add row before'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().addRowBefore().run()*/}
-                {/*                }*/}
-                {/*            >Add row before</SelectItem>*/}
-
-                {/*            <SelectItem*/}
-                {/*                value={'Add row after'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().addRowAfter().run()*/}
-                {/*                }*/}
-                {/*            >Add row after</SelectItem>*/}
-
-                {/*            <SelectItem*/}
-                {/*                value={'Delete row'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().deleteRow().run()*/}
-                {/*                }*/}
-                {/*            >Delete row</SelectItem>*/}
-
-                {/*            <SelectItem*/}
-                {/*                value={'Delete table'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().deleteTable().run()*/}
-                {/*                }*/}
-                {/*            >Delete table</SelectItem>*/}
-
-                {/*            <SelectItem*/}
-                {/*                value={'Merge cells'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().mergeCells().run()*/}
-                {/*                }*/}
-                {/*            >Merge cells</SelectItem>*/}
-
-                {/*            <SelectItem*/}
-                {/*                value={'Split cell'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().splitCell().run()*/}
-                {/*                }*/}
-                {/*            >Split cell</SelectItem>*/}
-                {/*            <SelectItem*/}
-                {/*                value={'Toggle header column'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().toggleHeaderColumn().run()}*/}
-                {/*            >*/}
-                {/*                Toggle header column*/}
-                {/*            </SelectItem>*/}
-
-                {/*            <SelectItem*/}
-                {/*                value={'Toggle header row'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().toggleHeaderRow().run()*/}
-                {/*                }>*/}
-                {/*                Toggle header row*/}
-                {/*            </SelectItem>*/}
-
-                {/*            <SelectItem*/}
-                {/*                value={'Toggle header cell'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().toggleHeaderCell().run()}>*/}
-                {/*                Toggle header cell*/}
-                {/*            </SelectItem>*/}
-
-                {/*            <SelectItem*/}
-                {/*                value={'Merge or split'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().mergeOrSplit().run()*/}
-                {/*                }>Merge or split</SelectItem>*/}
-
-                {/*            <SelectItem*/}
-                {/*                value={'Set cell attribute'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().setCellAttribute('colspan', 2).run()}>*/}
-                {/*                Set cell attribute*/}
-                {/*            </SelectItem>*/}
-
-                {/*            <SelectItem*/}
-                {/*                value={'Fix tables'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().fixTables().run()}*/}
-                {/*            >Fix tables</SelectItem>*/}
-                {/*            <SelectItem*/}
-                {/*                value={'Go to next cell'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().goToNextCell().run()}*/}
-                {/*            >Go to next cell</SelectItem>*/}
-                {/*            <SelectItem*/}
-                {/*                value={'Go to previous cell'}*/}
-                {/*                onClick={() =>*/}
-                {/*                    editor.chain().focus().goToPreviousCell().run()}>*/}
-                {/*                Go to previous cell*/}
-                {/*            </SelectItem>*/}
-                {/*        </SelectContent>*/}
-                {/*    </Select>*/}
-                {/*</div>*/}
+                {/*<Image*/}
+                {/*    onClick={(event) => {*/}
+                {/*        event.preventDefault();*/}
+                {/*        var input = document.getElementById("fileUpload");*/}
+                {/*        // @ts-ignore*/}
+                {/*        input.click();*/}
+                {/*        // @ts-ignore*/}
+                {/*        input.onchange = async (e) => {*/}
+                {/*            // @ts-ignore*/}
+                {/*            var file = e.target.files[0];*/}
+                {/*            // const url = URL.createObjectURL(file);*/}
+                {/*            const url = `/tmp/${file.name}`*/}
+                {/*            */}
+                {/*            await handleUploadImg(file)*/}
+                {/*            */}
+                {/*            // if (url) {*/}
+                {/*            editor.commands.insertContent(`<react-component src=${url} />`);*/}
+                {/*            // }*/}
+                {/*        };*/}
+                {/*    }}*/}
+                {/*    className={'m-2 cursor-pointer h-5 w-5'}/>*/}
+                <input id="fileUpload" type="file" style={{display: "none"}}/>
 
                 <Toggle
                     onClick={() => editor.chain().focus().toggleTaskList().run()}
@@ -373,17 +187,6 @@ export default function FloatingToolbar({editor}: Props) {
                 >
                     <SquareCheck className={'h-4 w-4'}/>
                 </Toggle>
-                {/*<Link2*/}
-                {/*    onClick={setLink}*/}
-                {/*    className={`h-5 w-5 m-2 cursor-pointer*/}
-                {/*     ${editor.isActive('link') ? 'is-active' : ''}`}/>*/}
-
-                {/*<Toggle*/}
-                {/*    onClick={() => editor.chain().focus().unsetLink().run()}*/}
-                {/*    disabled={!editor.isActive('link')}*/}
-                {/*>*/}
-                {/*    <Link2Off className={'h-4 w-4'}/>*/}
-                {/*</Toggle>*/}
             </div>
 
         </FloatingMenu>

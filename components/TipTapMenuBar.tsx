@@ -11,7 +11,7 @@ import {
     Heading3,
     Heading4,
     Heading5,
-    Heading6,
+    Heading6, Image,
     Italic,
     List,
     ListOrdered,
@@ -20,12 +20,41 @@ import {
     Strikethrough,
     Undo,
 } from "lucide-react";
+import {useCallback} from "react";
+import {handleUploadImg} from "@/lib/tiptapEx";
 
 type Props = {
     editor: Editor
 }
 
 export default function TipTapMenuBar({editor}: Props) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const addImage = useCallback((event) => {
+        event.preventDefault();
+        let url = ''
+        // const url = window.prompt('URL')
+        var input = document.getElementById("fileUpload");
+        // @ts-ignore
+        input.click();
+        // @ts-ignore
+        input.onchange = async (e) => {
+            // @ts-ignore
+            var file = e.target.files[0];
+            url = `/tmp/${file.name}`
+            // const url = URL.createObjectURL(file);
+
+            await handleUploadImg(file)
+
+            if (url) {
+                // editor.commands.insertContent(`<react-component src=${url} />`);
+                editor.chain().focus().setImage({src: url}).run()
+            }
+        };
+        // if (url) {
+        //     editor.chain().focus().setImage({src: url}).run()
+        // }
+    }, [editor])
+
     return (
         <div
             className={'flex flex-wrap gap-2'}
@@ -42,82 +71,83 @@ export default function TipTapMenuBar({editor}: Props) {
                 disabled={!editor.can().chain().focus().toggleItalic().run()}
                 className={editor.isActive("italic") ? "is-active" : ""}
             >
-                <Italic className="w-6 h-6" />
+                <Italic className="w-6 h-6"/>
             </button>
             <button
                 onClick={() => editor.chain().focus().toggleStrike().run()}
                 disabled={!editor.can().chain().focus().toggleStrike().run()}
                 className={editor.isActive("strike") ? "is-active" : ""}
             >
-                <Strikethrough className="w-6 h-6" />
+                <Strikethrough className="w-6 h-6"/>
             </button>
             <button
                 onClick={() => editor.chain().focus().toggleCode().run()}
                 disabled={!editor.can().chain().focus().toggleCode().run()}
                 className={editor.isActive("code") ? "is-active" : ""}
             >
-                <Code className="w-6 h-6" />
+                <Code className="w-6 h-6"/>
             </button>
             <button
-                onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                className={editor.isActive("heading", { level: 1 }) ? "is-active" : ""}
+                onClick={() => editor.chain().focus().toggleHeading({level: 1}).run()}
+                className={editor.isActive("heading", {level: 1}) ? "is-active" : ""}
             >
-                <Heading1 className="w-6 h-6" />
+                <Heading1 className="w-6 h-6"/>
             </button>
             <button
-                onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                className={editor.isActive("heading", { level: 2 }) ? "is-active" : ""}
+                onClick={() => editor.chain().focus().toggleHeading({level: 2}).run()}
+                className={editor.isActive("heading", {level: 2}) ? "is-active" : ""}
             >
-                <Heading2 className="w-6 h-6" />
+                <Heading2 className="w-6 h-6"/>
             </button>
             <button
-                onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-                className={editor.isActive("heading", { level: 3 }) ? "is-active" : ""}
+                onClick={() => editor.chain().focus().toggleHeading({level: 3}).run()}
+                className={editor.isActive("heading", {level: 3}) ? "is-active" : ""}
             >
-                <Heading3 className="w-6 h-6" />
+                <Heading3 className="w-6 h-6"/>
             </button>
             <button
-                onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-                className={editor.isActive("heading", { level: 4 }) ? "is-active" : ""}
+                onClick={() => editor.chain().focus().toggleHeading({level: 4}).run()}
+                className={editor.isActive("heading", {level: 4}) ? "is-active" : ""}
             >
-                <Heading4 className="w-6 h-6" />
+                <Heading4 className="w-6 h-6"/>
             </button>
             <button
-                onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-                className={editor.isActive("heading", { level: 5 }) ? "is-active" : ""}
+                onClick={() => editor.chain().focus().toggleHeading({level: 5}).run()}
+                className={editor.isActive("heading", {level: 5}) ? "is-active" : ""}
             >
-                <Heading5 className="w-6 h-6" />
+                <Heading5 className="w-6 h-6"/>
             </button>
             <button
-                onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-                className={editor.isActive("heading", { level: 6 }) ? "is-active" : ""}
+                onClick={() => editor.chain().focus().toggleHeading({level: 6}).run()}
+                className={editor.isActive("heading", {level: 6}) ? "is-active" : ""}
             >
-                <Heading6 className="w-6 h-6" />
+                <Heading6 className="w-6 h-6"/>
             </button>
             <button
                 onClick={() => editor.chain().focus().toggleBulletList().run()}
                 className={editor.isActive("bulletList") ? "is-active" : ""}
             >
-                <List className="w-6 h-6" />
+                <List className="w-6 h-6"/>
             </button>
             <button
                 onClick={() => editor.chain().focus().toggleOrderedList().run()}
                 className={editor.isActive("orderedList") ? "is-active" : ""}
             >
-                <ListOrdered className="w-6 h-6" />
+                <ListOrdered className="w-6 h-6"/>
             </button>
             <button
                 onClick={() => editor.chain().focus().toggleCodeBlock().run()}
                 className={editor.isActive("codeBlock") ? "is-active" : ""}
             >
-                <CodepenIcon className="w-6 h-6" />
+                <CodepenIcon className="w-6 h-6"/>
             </button>
             <button
                 onClick={() => editor.chain().focus().toggleBlockquote().run()}
                 className={editor.isActive("blockquote") ? "is-active" : ""}
             >
-                <Quote className="w-6 h-6" />
+                <Quote className="w-6 h-6"/>
             </button>
+            <Image onClick={addImage} className={'mt-2 cursor-pointer h-6 w-6'}/>
             {/*<button*/}
             {/*    onClick={() => editor.chain().focus().undo().run()}*/}
             {/*    disabled={!editor.can().chain().focus().undo().run()}*/}
