@@ -24,10 +24,11 @@ import {useCallback} from "react";
 import {handleUploadImg} from "@/lib/tiptapEx";
 
 type Props = {
+    name: string,
     editor: Editor
 }
 
-export default function TipTapMenuBar({editor}: Props) {
+export default function TipTapMenuBar({name, editor}: Props) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const addImage = useCallback((event) => {
         event.preventDefault();
@@ -40,10 +41,10 @@ export default function TipTapMenuBar({editor}: Props) {
         input.onchange = async (e) => {
             // @ts-ignore
             var file = e.target.files[0];
-            url = `/tmp/${file.name}`
+            url = `/${name}/${file.name}`
             // const url = URL.createObjectURL(file);
 
-            await handleUploadImg(file)
+            await handleUploadImg(file, url)
 
             if (url) {
                 // editor.commands.insertContent(`<react-component src=${url} />`);
@@ -160,6 +161,12 @@ export default function TipTapMenuBar({editor}: Props) {
             {/*>*/}
             {/*    <Redo className="w-6 h-6" />*/}
             {/*</button>*/}
+            <button onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()}>
+                <Undo className="w-6 h-6"/>
+            </button>
+            <button onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()}>
+                <Redo className="w-6 h-6"/>
+            </button>
         </div>
     )
 }

@@ -63,7 +63,9 @@ import TextAlign from '@tiptap/extension-text-align'
 
 import ImageComponent from '@/components/TiptapImageEx/extension'
 import ImageResize from 'tiptap-extension-resize-image';
-// import {ResizableImage} from "tiptap-resize-image";
+import {ResizableImage} from "tiptap-resize-image";
+
+import History from '@tiptap/extension-history'
 
 type Props = {
     note: NoteType
@@ -112,6 +114,7 @@ export default function TipTapEditor({note}: Props) {
 
     const editor = useEditor({
         extensions: [
+            History,
             ImageResize,
             // ResizableImage,
             ImageComponent, // custom
@@ -219,14 +222,14 @@ export default function TipTapEditor({note}: Props) {
     return (
         <>
             <div className={'flex gap-2'}>
-                {editor && <TipTapMenuBar editor={editor}/>}
+                {editor && <TipTapMenuBar name={note.name} editor={editor}/>}
                 <Button disabled variant={'outline'}>
                     {saveNote.isPending ? "Saving..." : "Saved"}
                 </Button>
             </div>
 
             {/* prose类名不会覆盖标题的样式 */}
-            <FloatingToolbar editor={editor}/>
+            <FloatingToolbar name={note.name} editor={editor}/>
             <BubbleToolbar editor={editor}/>
             <div className={'prose prose-sm w-full mt-4'}>
                 <EditorContent editor={editor}/>

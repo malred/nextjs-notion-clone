@@ -19,10 +19,11 @@ import {useCallback} from "react";
 import {handleUploadImg} from '@/lib/tiptapEx'
 
 type Props = {
+    name: string,
     editor: Editor | null
 }
 
-export default function FloatingToolbar({editor}: Props) {
+export default function FloatingToolbar({name, editor}: Props) {
     if (!editor)
         return null
 
@@ -38,10 +39,10 @@ export default function FloatingToolbar({editor}: Props) {
         input.onchange = async (e) => {
             // @ts-ignore
             var file = e.target.files[0];
-            url = `/tmp/${file.name}`
+            url = `/${name}/${file.name}`
             // const url = URL.createObjectURL(file);
 
-            await handleUploadImg(file)
+            await handleUploadImg(file, url)
 
             if (url) {
                 // editor.commands.insertContent(`<react-component src=${url} />`);

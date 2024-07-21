@@ -1,8 +1,8 @@
-
-export const handleUploadImg = async (file) => {
+export const handleUploadImg = async (file, url) => {
     try {
         const data = new FormData()
         data.set('file', file)
+        data.set('url', url)
 
         const res = await fetch('/api/upload', {
             method: 'POST',
